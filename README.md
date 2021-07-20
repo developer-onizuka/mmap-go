@@ -5,7 +5,7 @@ $ go get github.com/edsrzf/mmap-go
 
 # 2.
 ```
-$ echo -n "hello, world! > test.txt"
+$ echo -n "hello, world!" > test.txt
 ```
 
 # 3. 
