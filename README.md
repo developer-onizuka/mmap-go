@@ -76,6 +76,8 @@ func inc(n int) int {
 # 3.
 You can cast the code above to "func(int) int". 
 But Please note the address to cast is not silce's pointer it self but the address of slice's pointer. 
+
+https://www.techscore.com/tech/Go/Lang/Basic14/
 ```
         copy(prog,code)
         ptr := &prog
