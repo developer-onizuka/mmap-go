@@ -75,16 +75,44 @@ func inc(n int) int {
 
 # 3.
 You can cast the code above to "func(int) int". 
-But Please note the address to cast is not silce's pointer it self but the address of slice's pointer. 
+But Please note the address to cast is not silce's pointer it self but the address of slice's pointer.
+See also https://www.techscore.com/tech/Go/Lang/Basic14/
 
-https://www.techscore.com/tech/Go/Lang/Basic14/
+```
+----- output example of "go run mmap-exec.go -----
+&ptr(=&&prog): 0xc000084020
+unsafe.Pointer(&ptr): (unsafe.Pointer)(0xc000084020)
+unsafe.Pointer(ptr): (unsafe.Pointer)(0xc000078060)
+inc: (func(int) int)(0x7fbadc4bc000)
+&inc: (*func(int) int)(0xc000084028)
+--------------------------------------------------
+
+                                                                               inc (type (func(int) int))
+                                        prog (type []byte)                     +--------------+ 0xc000084028
+type []byte                             +----------------+ 0xc000078060 <-----<| 0xc000078060 | (&ptr) 
++---------------+ 0x7fbadc4bc000 <-----<| 0x7fbadc4bc000 | (&prog = ptr)       +--------------+
+| prog[0]=0x48  |                       +----------------+                     | 0xc000078060 |
++---------------+ 0x7fbadc4bc001        | len=23         |                     +--------------+
+| prog[1]=0xc7  |                       +----------------+
++---------------+ 0x7fbadc4bc002        | cap=23         |
+| prog[2]=0x44  |                       +----------------+
++---------------+ 0x7fbadc4bc003
+| prog[3]=0x24  |
++---------------+ 0x7fbadc4bc004
+| prog[4]=0x10  |
++---------------+ 
+       ...
++---------------+ 
+| prog[22]=0xc3 |
++---------------+ 
+```
 ```
         copy(prog,code)
         ptr := &prog
 	
-        fmt.Printf("unsafe.Pointer(&ptr): %#v\n", unsafe.Pointer(&ptr)) // this is the target for casting to func.
-        fmt.Printf("unsafe.Pointer(ptr): %#v\n", unsafe.Pointer(ptr)) // unable to be casted because it's already casted by []byte.
-        inc := *(*func(int) int)(unsafe.Pointer(&ptr)) // casting to the silce pointer of the prog's pointer, not prog's pointer directory.
-        // inc := *(*func(int) int)(unsafe.Pointer(ptr)) // unable to be casted because it's already casted by []byte.
+        fmt.Printf("unsafe.Pointer(&ptr): %#v\n", unsafe.Pointer(&ptr)) //this is the target for casting to func.
+        fmt.Printf("unsafe.Pointer(ptr): %#v\n", unsafe.Pointer(ptr)) //unable to be casted because it's already casted by []byte.
+        inc := *(*func(int) int)(unsafe.Pointer(&ptr)) //casting to the address of the prog's pointer, not prog's pointer directory.
+        // inc := *(*func(int) int)(unsafe.Pointer(ptr)) //unable to be casted because it's already casted by []byte.
         // inc := *(*func(int) int)(&ptr) // cannot convert &ptr (type **[]byte) to type *func(int) int.
 ```

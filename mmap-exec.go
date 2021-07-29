@@ -63,10 +63,10 @@ func main() {
 	fmt.Printf("-----\n")
 
 	fmt.Printf("&ptr(=&&prog): %p\n", &ptr)
-	fmt.Printf("unsafe.Pointer(&ptr): %#v\n", unsafe.Pointer(&ptr)) // this is the target for casting to func.
-	fmt.Printf("unsafe.Pointer(ptr): %#v\n", unsafe.Pointer(ptr)) // unable to be casted because it's already casted by []byte.
-	inc := *(*func(int) int)(unsafe.Pointer(&ptr)) // casting to the silce pointer of the prog's pointer, not prog's pointer directory.
-	// inc := *(*func(int) int)(unsafe.Pointer(ptr)) // unable to be casted because it's already casted by []byte.
+	fmt.Printf("unsafe.Pointer(&ptr): %#v\n", unsafe.Pointer(&ptr)) //this is the target for casting to func.
+	fmt.Printf("unsafe.Pointer(ptr): %#v\n", unsafe.Pointer(ptr)) //unable to be casted because it's already casted by []byte.
+	inc := *(*func(int) int)(unsafe.Pointer(&ptr)) //casting to the address of the prog's pointer, not prog's pointer directory.
+	// inc := *(*func(int) int)(unsafe.Pointer(ptr)) //unable to be casted because it's already casted by []byte.
 	// inc := *(*func(int) int)(&ptr) // cannot convert &ptr (type **[]byte) to type *func(int) int.
 	fmt.Printf("inc: %#v\n", inc)
 	fmt.Printf("&inc: %#v\n", &inc)
