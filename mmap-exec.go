@@ -70,8 +70,9 @@ func main() {
 	// inc := *(*func(int) int)(&ptr) // cannot convert &ptr (type **[]byte) to type *func(int) int.
 	fmt.Printf("inc: %#v\n", inc)
 	fmt.Printf("&inc: %#v\n", &inc)
+	fmt.Printf("&inc: %p\n", &inc)
 	fmt.Printf("-----\n")
 	fmt.Printf("\n")
 
-	fmt.Println(inc(100))
+	fmt.Println(inc(100)) // 101 (=100+1)
 }
