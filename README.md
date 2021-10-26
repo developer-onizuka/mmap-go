@@ -1,4 +1,5 @@
 # Memory Mapped File
+[![Go](https://github.com/developer-onizuka/mmap-go/actions/workflows/go.yml/badge.svg)](https://github.com/developer-onizuka/mmap-go/actions/workflows/go.yml)
 # 1.
 ```
 $ go get github.com/edsrzf/mmap-go
