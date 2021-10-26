@@ -19,7 +19,7 @@ jobs:
         go-version: 1.17
 
     - name: Build1
-      run: go get github.com/edsrzf/mmap-go; go build -v mmap.go
+      run: go build -v mmap.go
     - name: Build2   
       run: go build -v inc.go
 
